@@ -22,7 +22,7 @@ public class ProductController {
     }
 
     @Get("/paged")
-    public List<Product> getAllPaged(@QueryValue Optional<Integer> page, @QueryValue Optional<Integer> size) {
+    public Page<Product> getAllPaged(@QueryValue Optional<Integer> page, @QueryValue Optional<Integer> size) {
         return productService.getAllPaged(page.orElse(0), size.orElse(2));
     }
 

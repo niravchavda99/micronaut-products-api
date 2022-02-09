@@ -1,6 +1,5 @@
 package com.incubyte;
 
-import com.incubyte.product.Product;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;

@@ -49,7 +49,7 @@ public class ProductService {
         return productRepository.getByName(name).orElseThrow(EntityExistsException::new);
     }
 
-    public List<Product> getAllPaged(int page, int size) {
-        return productRepository.findAll(Pageable.from(page, size)).getContent();
+    public Page<Product> getAllPaged(int page, int size) {
+        return productRepository.findAll(Pageable.from(page, size));
     }
 }
