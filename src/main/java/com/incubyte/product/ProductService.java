@@ -4,6 +4,7 @@ import jakarta.inject.Singleton;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Singleton
 public class ProductService {
@@ -26,9 +27,10 @@ public class ProductService {
 
     @Transactional
     public Product getById(Long id) {
-        return productRepository.findById(id).get();
+        return productRepository.findById(id).orElse(null);
     }
 
+    @Transactional
     public Product update(Product updatedProduct) {
         return productRepository.update(updatedProduct);
     }
