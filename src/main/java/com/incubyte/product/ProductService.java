@@ -1,5 +1,7 @@
 package com.incubyte.product;
 
+import io.micronaut.data.model.Page;
+import io.micronaut.data.model.Pageable;
 import jakarta.inject.Singleton;
 
 import javax.persistence.EntityExistsException;
@@ -19,9 +21,9 @@ public class ProductService {
 
     @Transactional
     public Product save(Product product) {
-        Product existingProduct = productRepository.getByName(product.getName());
+        Optional<Product> existingProduct = productRepository.getByName(product.getName());
 
-        if (existingProduct != null) {
+        if (existingProduct.isPresent()) {
             throw new EntityExistsException();
         }
 
@@ -35,12 +37,7 @@ public class ProductService {
 
     @Transactional
     public Product getById(Long id) {
-        Optional<Product> product = productRepository.findById(id);
-        if (product.isEmpty()) {
-            throw new EntityNotFoundException();
-        }
-
-        return product.get();
+        return productRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
     @Transactional
@@ -49,6 +46,10 @@ public class ProductService {
     }
 
     public Product getByName(String name) {
-        return productRepository.getByName(name);
+        return productRepository.getByName(name).orElseThrow(EntityExistsException::new);
+    }
+
+    public List<Product> getAllPaged(int page, int size) {
+        return productRepository.findAll(Pageable.from(page, size)).getContent();
     }
 }

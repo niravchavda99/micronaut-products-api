@@ -1,8 +1,11 @@
 package com.incubyte.product;
 
+import io.micronaut.data.annotation.Query;
+import io.micronaut.data.model.Page;
 import io.micronaut.http.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller("/products")
 public class ProductController {
@@ -16,6 +19,11 @@ public class ProductController {
     @Get
     public List<Product> getAll() {
         return productService.getAll();
+    }
+
+    @Get("/paged")
+    public List<Product> getAllPaged(@QueryValue Optional<Integer> page, @QueryValue Optional<Integer> size) {
+        return productService.getAllPaged(page.orElse(0), size.orElse(2));
     }
 
     @Get("findById/{id}")

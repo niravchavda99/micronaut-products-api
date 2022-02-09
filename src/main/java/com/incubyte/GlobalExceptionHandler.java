@@ -22,6 +22,6 @@ public class GlobalExceptionHandler implements ExceptionHandler<PersistenceExcep
         } else if (exception instanceof EntityExistsException) {
             return HttpResponse.badRequest("Product already exists!");
         }
-        return HttpResponse.serverError("Internal Server Error");
+        return HttpResponse.serverError(exception.getMessage());
     }
 }
