@@ -2,6 +2,7 @@ package com.incubyte.product;
 
 import jakarta.inject.Singleton;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -18,6 +19,12 @@ public class ProductService {
 
     @Transactional
     public Product save(Product product) {
+        Product existingProduct = productRepository.getByName(product.getName());
+
+        if (existingProduct != null) {
+            throw new EntityExistsException();
+        }
+
         return productRepository.save(product);
     }
 
@@ -33,11 +40,15 @@ public class ProductService {
             throw new EntityNotFoundException();
         }
 
-        return  product.get();
+        return product.get();
     }
 
     @Transactional
     public Product update(Product updatedProduct) {
         return productRepository.update(updatedProduct);
+    }
+
+    public Product getByName(String name) {
+        return productRepository.getByName(name);
     }
 }

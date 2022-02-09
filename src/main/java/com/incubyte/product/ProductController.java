@@ -23,8 +23,10 @@ public class ProductController {
         return productService.getById(id);
     }
 
-    //    @Get("/findByName/${name}")
-//    public Product getByName()
+    @Get("/findByName/{name}")
+    public Product getByName(String name) {
+        return productService.getByName(name);
+    }
 
     @Post
     public Product save(@Body Product product) {
