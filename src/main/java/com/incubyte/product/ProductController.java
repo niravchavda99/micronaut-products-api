@@ -18,10 +18,13 @@ public class ProductController {
         return productService.getAll();
     }
 
-    @Get("/{id}")
+    @Get("findById/{id}")
     public Product getById(Long id) {
         return productService.getById(id);
     }
+
+    //    @Get("/findByName/${name}")
+//    public Product getByName()
 
     @Post
     public Product save(@Body Product product) {

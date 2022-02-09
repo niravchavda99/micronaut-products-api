@@ -2,6 +2,7 @@ package com.incubyte.product;
 
 import jakarta.inject.Singleton;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +28,12 @@ public class ProductService {
 
     @Transactional
     public Product getById(Long id) {
-        return productRepository.findById(id).orElse(null);
+        Optional<Product> product = productRepository.findById(id);
+        if (product.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
+
+        return  product.get();
     }
 
     @Transactional
