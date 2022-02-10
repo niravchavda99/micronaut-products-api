@@ -1,6 +1,5 @@
 package com.incubyte.product;
 
-import io.micronaut.data.annotation.Query;
 import io.micronaut.data.model.Page;
 import io.micronaut.http.annotation.*;
 
