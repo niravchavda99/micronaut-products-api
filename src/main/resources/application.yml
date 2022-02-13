@@ -7,6 +7,6 @@ datasources:
     driverClassName: com.mysql.cj.jdbc.Driver
     username: root
     password: root
-    schema-generate: NONE
-#    dialect: MYSQL
-#jpa.default.properties.hibernate.hbm2ddl.auto: update
+    schema-generate: CREATE
+    dialect: MYSQL
+jpa.default.properties.hibernate.hbm2ddl.auto: update
